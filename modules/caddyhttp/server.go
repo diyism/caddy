@@ -549,8 +549,6 @@ func (s *Server) serveHTTP3(addr caddy.NetworkAddress, tlsCfg *tls.Config) error
 
 	s.h3listeners = append(s.h3listeners, lnAny.(net.PacketConn))
 
-	j, _:= json.MarshalIndent(tlsCfg, "", "    ")
-	fmt.Printf("%+v", j)
 	//nolint:errcheck
 	go s.h3server.ServeListener(h3ln)
 
