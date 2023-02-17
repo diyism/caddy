@@ -30,7 +30,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
-	"encode/json"
+	"encoding/json"
 )
 
 func init() {
