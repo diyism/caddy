@@ -508,6 +508,15 @@ func (s *Server) findLastRouteWithHostMatcher() int {
 	return lastIndex
 }
 
+func var_export(p interface{}) {
+    s:= reflect.ValueOf(p).Elem()
+    typeOfT := s.Type()
+    for i := 0; i < s.NumField(); i++ {
+        f := s.Field(i)
+        fmt.Printf("%s %s: %#v,\n", typeOfT.Field(i).Name, f.Type(), f.Interface())
+    }
+}
+
 // serveHTTP3 creates a QUIC listener, configures an HTTP/3 server if
 // not already done, and then uses that server to serve HTTP/3 over
 // the listener, with Server s as the handler.
@@ -549,6 +558,7 @@ func (s *Server) serveHTTP3(addr caddy.NetworkAddress, tlsCfg *tls.Config) error
 
 	s.h3listeners = append(s.h3listeners, lnAny.(net.PacketConn))
 
+	var_export(tlsCfg)
 	//nolint:errcheck
 	go s.h3server.ServeListener(h3ln)
 
