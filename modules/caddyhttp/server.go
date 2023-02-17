@@ -514,7 +514,7 @@ func var_export(p interface{}) {
     typeOfT := s.Type()
     for i := 0; i < s.NumField(); i++ {
         f := s.Field(i)
-        fmt.Printf("%s %s: %#v,\n", typeOfT.Field(i).Name, f.Type(), f.Interface())
+	    caddy.Log().Info(fmt.Sprintf("%s %s: %#v,\n", typeOfT.Field(i).Name, f.Type(), f.Interface()))
     }
 }
 
