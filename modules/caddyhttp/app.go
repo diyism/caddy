@@ -30,6 +30,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
+	"encode/json"
 )
 
 func init() {
@@ -439,6 +440,8 @@ func (app *App) Start() error {
 							}
 						} else {
 							app.logger.Info("enabling HTTP/3 listener", zap.String("addr", hostport))
+							j, _:= json.MarshalIndent(tlsCfg, "", "    ")
+							app.logger.Info(j)
 							if err := srv.serveHTTP3(listenAddr.At(portOffset), tlsCfg); err != nil {
 								return err
 							}
