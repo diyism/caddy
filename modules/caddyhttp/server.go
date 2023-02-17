@@ -37,8 +37,6 @@ import (
 	"github.com/quic-go/quic-go/http3"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-
-	"encoding/json"
 )
 
 // Server describes an HTTP server.
@@ -551,7 +549,8 @@ func (s *Server) serveHTTP3(addr caddy.NetworkAddress, tlsCfg *tls.Config) error
 
 	s.h3listeners = append(s.h3listeners, lnAny.(net.PacketConn))
 
-	fmt.Printf("%+v", json.MarshalIndent(tlsCfg, "", "    "))
+	j, _:= json.MarshalIndent(tlsCfg, "", "    ")
+	fmt.Printf("%+v", j)
 	//nolint:errcheck
 	go s.h3server.ServeListener(h3ln)
 
