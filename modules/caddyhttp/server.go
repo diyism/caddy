@@ -37,6 +37,7 @@ import (
 	"github.com/quic-go/quic-go/http3"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"reflect"
 )
 
 // Server describes an HTTP server.
@@ -508,7 +509,6 @@ func (s *Server) findLastRouteWithHostMatcher() int {
 	return lastIndex
 }
 
-import ("reflect")
 func var_export(p interface{}) {
     s:= reflect.ValueOf(p).Elem()
     typeOfT := s.Type()
