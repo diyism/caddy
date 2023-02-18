@@ -528,6 +528,21 @@ func (s *Server) serveHTTP3(addr caddy.NetworkAddress, tlsCfg *tls.Config) error
 		return err
 	}
 	ln := lnAny.(net.PacketConn)
+	
+	go func() {
+		for {
+			msg := []byte("Hello, world!")
+			//_, err := conn.Write(msg)
+			_, err := ln.WriteTo(msg, &net.UDPAddr{IP: net.ParseIP("112.65.8.124"), Port: 33997})
+			if err != nil {
+				//fmt.Println("Error sending message:", err)
+				continue
+			}
+
+			//fmt.Println("Message sent:", string(msg))
+			time.Sleep(1 * time.Second) // Wait for 1 second before sending the next message
+		}
+	}()
 
 	h3ln, err := caddy.ListenQUIC(ln, tlsCfg, &s.activeRequests)
 	if err != nil {
