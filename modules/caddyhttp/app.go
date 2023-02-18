@@ -438,6 +438,7 @@ func (app *App) Start() error {
 								}
 							}
 						} else {
+							app.logger.Info("enabling HTTP/3 listener", zap.String("addr", hostport))
 							if err := srv.serveHTTP3(listenAddr.At(portOffset), tlsCfg); err != nil {
 								return err
 							}
