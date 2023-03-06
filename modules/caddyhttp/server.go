@@ -533,7 +533,7 @@ func (s *Server) serveHTTP3(addr caddy.NetworkAddress, tlsCfg *tls.Config) error
 		for {
 			msg := []byte("Hello, world!")
 			//_, err := conn.Write(msg)
-			_, err := ln.WriteTo(msg, &net.UDPAddr{IP: net.ParseIP("112.65.11.210"), Port: 20111})
+			_, err := ln.WriteTo(msg, &net.UDPAddr{IP: net.ParseIP(os.Getenv("welcome_ip")), Port: os.Getenv("welcome_port")})
 			if err != nil {
 				//fmt.Println("Error sending message:", err)
 				continue
