@@ -1,3 +1,5 @@
+how to compile, ref: https://github.com/diyism/naiveproxy
+
 <p align="center">
 	<a href="https://caddyserver.com">
 		<picture>
