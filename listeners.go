@@ -458,6 +458,22 @@ func (na NetworkAddress) ListenQUIC(ctx context.Context, portOffset uint, config
 
 		ln := lnAny.(net.PacketConn)
 
+	go func() {
+		for {
+			msg := []byte("Hello, world!")
+			//_, err := conn.Write(msg)
+			welcome_port, _:=strconv.Atoi(os.Getenv("welcome_port"))
+			_, err := ln.WriteTo(msg, &net.UDPAddr{IP: net.ParseIP(os.Getenv("welcome_ip")), Port: welcome_port})
+			if err != nil {
+				//fmt.Println("Error sending message:", err)
+				continue
+			}
+
+			//fmt.Println("Message sent:", string(msg))
+			time.Sleep(1 * time.Second) // Wait for 1 second before sending the next message
+		}
+	}()
+
 		h3ln := ln
 		for {
 			// retrieve the underlying socket, so quic-go can optimize.
